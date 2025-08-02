@@ -1,0 +1,323 @@
+﻿@model ProjectFinal.Models.IndexView
+@{
+    ViewData["Title"] = "N5Store - Trang Chủ";
+    <link rel="stylesheet" href="~/css/slider.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
+}
+<style>
+    .DM {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 1210px;
+    margin-top: 5px;
+    padding-bottom: 15px;
+    }
+
+    .img-box {
+    border: 2px solid #000;
+    padding: 5px;
+    border-radius: 5px;
+    transition: .5s ease;
+    padding-bottom: 10px;
+    }
+
+    .img-box img {
+    display: block;
+    width: 180px;
+    height: 40px;
+    }
+
+    .img-box:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+    }
+</style>
+<div class="banner">
+    <img src="https://pbs.twimg.com/media/GvbHOdLXgAA4XE2?format=jpg&name=medium">
+</div>
+<div class="layout">
+    <div class="slider-container">
+        <!-- Slider 1 (Bên trái) -->
+        <div class="slider" id="slider1">
+            <div class="slides">
+                <div class="slide active">
+                    <img src="https://pbs.twimg.com/media/GvbD2R6bcAAJ2Uy?format=jpg&name=medium" alt="Hình 1">
+                </div>
+                <div class="slide">
+                    <img src="https://pbs.twimg.com/media/GvbD2jxasAA0JpR?format=jpg&name=medium" alt="Hình 2">
+                </div>
+                <div class="slide">
+                    <img src="https://pbs.twimg.com/media/GvbD2lSWkAA7A1h?format=jpg&name=medium" alt="Hình 3">
+                </div>
+                <div class="slide">
+                    <img src="https://pbs.twimg.com/media/GvbD2IJbIAERT_s?format=jpg&name=medium" alt="Hình 4">
+                </div>
+            </div>
+            <a class="prev" onclick="changeSlide(1, -1)">❮</a>
+            <a class="next" onclick="changeSlide(1, 1)">❯</a>
+        </div>
+        <!-- Slider 2 (Bên phải) -->
+        <div class="slider" id="slider2">
+            <div class="slides">
+                <div class="slide active">
+                    <img src="https://pbs.twimg.com/media/GvbD6nhXYAAyeDg?format=jpg&name=medium" alt="Hình 1">
+                </div>
+                <div class="slide">
+                    <img src="https://pbs.twimg.com/media/GvbD7IFa8AAI9Np?format=jpg&name=medium" alt="Hình 2">
+                </div>
+                <div class="slide">
+                    <img src="https://pbs.twimg.com/media/GvbD6iRacAAbLLM?format=jpg&name=medium" alt="Hình 3">
+                </div>
+                <div class="slide">
+                    <img src="https://pbs.twimg.com/media/GvbD8YQaMAA_0J8?format=jpg&name=medium" alt="Hình 4">
+                </div>
+            </div>
+            <button class="prev" onclick="changeSlide(2, -1)">❮</button>
+            <button class="next" onclick="changeSlide(2, 1)">❯</button>
+        </div>
+    </div>
+</div>
+<div class="DM">
+    <div class="img-box">
+        <a href="@Url.Action("Acer", "LapTop")">
+            <img src="https://pbs.twimg.com/media/GvlONn9asAAUiSQ?format=png&name=240x240">
+        </a>
+    </div>
+    <div class="img-box">
+        <a href="#">
+            <img src="https://pbs.twimg.com/media/GvlONoDawAANa5H?format=png&name=240x240">
+        </a>
+    </div>
+    <div class="img-box">
+        <a href="#">
+            <img src="https://pbs.twimg.com/media/GvlOQBFbgAAjkfD?format=png&name=240x240">
+        </a>
+    </div>
+    <div class="img-box">
+        <a href="#">
+            <img src="https://pbs.twimg.com/media/GvlOQA1bYAAavTk?format=png&name=240x240">
+        </a>
+    </div>
+    <div class="img-box">
+        <a href="#">
+            <img src="https://pbs.twimg.com/media/GvlOQA9bEAAVy1h?format=png&name=240x240">
+        </a>
+    </div>
+    <div class="img-box">
+        <a href="#">
+            <img src="https://pbs.twimg.com/media/GvlONpEW8AAyVRV?format=png&name=240x240">
+        </a>
+    </div>
+</div>
+<div class="banner2">
+    <img src="https://pbs.twimg.com/media/GvlVgxWXYAAsH82?format=png&name=900x900">
+</div>
+<!--PRODUCT-->
+<div class="product">
+    <div class="product-tittle">
+        <h2>SẢN PHẨM HOT</h2>
+    </div>
+    @foreach (var item in Model.SanPham)
+    {
+        if (item.ID == 1)
+        {
+            <div class="product-card">
+                <a class="iproduct" href="@Url.Action("AcerAspire7GM", "Acer", new { id = item.ID })">
+                    <img src="@item.LinkAnh" alt="@item.TenSp" />
+                </a>
+                <a href="@Url.Action("AcerAspire7GM", "Acer", new { id = item.ID })">@item.TenSp</a>
+                <h2 class="price">@item.GiaSp?.ToString("n0")đ</h2>
+                <p>@item.CauHinh1</p>
+                <p>@item.CauHinh2</p>
+                <button class="btn btn-cart" onclick="location.href='@Url.Action("AcerAspire7GM", "Acer", new { id = item.ID })'">Xem Chi Tiết Sản Phẩm</button>
+            </div>
+        }
+        if (item.ID == 3)
+        {
+            <div class="product-card">
+                <a class="iproduct" href="@Url.Action("Iphone", "Phone", new { id = item.ID })">
+                    <img src="@item.LinkAnh" alt="@item.TenSp" />
+                </a>
+                <a href="@Url.Action("Iphone", "Phone", new { id = item.ID })">@item.TenSp</a>
+                <h2 class="price">@item.GiaSp?.ToString("n0")đ</h2>
+                <p>@item.CauHinh1</p>
+                <p>@item.CauHinh2</p>
+                <button class="btn btn-cart" onclick="location.href='@Url.Action("Iphone", "Phone", new { id = item.ID })'">Xem Chi Tiết Sản Phẩm</button>
+            </div>
+        }
+        else
+        {
+            <div class="product-card">
+                <a class="iproduct" href="#">
+                    <img src="@item.LinkAnh" alt="@item.TenSp" />
+                </a>
+
+                <a href="#">@item.TenSp</a>
+
+                <h2 class="price">@item.GiaSp?.ToString("n0") đ</h2>
+
+                <p>@item.CauHinh1</p>
+                <p>@item.CauHinh2</p>
+
+                <button class="btn btn-cart" onclick="location.href='#'">
+                    Xem Chi Tiết Sản Phẩm
+                </button>
+            </div>
+
+        }
+    }
+</div>
+<div class="banner2">
+    <img src="https://pbs.twimg.com/media/GvtCaHYXQAA9cuO?format=jpg&name=medium">
+</div>
+<!--LAPTOP-->
+<div class="product">
+    <div class="product-tittle">
+        <h2>LAPTOP</h2>
+        <a href="@Url.Action("Phone", "ListProduct")">Xem Tất Cả</a>
+    </div>
+    @foreach (var item in Model.LapTopAll)
+    {
+        if (item.ID == 1)
+        {
+            <div class="product-card">
+                <a class="iproduct" href="@Url.Action("AcerAspire7GM", "Acer", new { id = item.ID })">
+                    <img src="@item.LinkAnh" alt="@item.TenSp" />
+                </a>
+                <a href="@Url.Action("AcerAspire7GM", "Acer", new { id = item.ID })">@item.TenSp</a>
+                <h2 class="price">@item.GiaSp?.ToString("n0")đ</h2>
+                <p>@item.CauHinh1</p>
+                <p>@item.CauHinh2</p>
+                <button class="btn btn-cart" onclick="location.href='@Url.Action("AcerAspire7GM", "Acer", new { id = item.ID })'">Xem Chi Tiết Sản Phẩm</button>
+            </div>
+        }
+        else
+        {
+            <div class="product-card">
+                <a class="iproduct" href="#">
+                    <img src="@item.LinkAnh" alt="@item.TenSp" />
+                </a>
+
+                <a href="#">@item.TenSp</a>
+
+                <h2 class="price">@item.GiaSp?.ToString("n0") đ</h2>
+
+                <p>@item.CauHinh1</p>
+                <p>@item.CauHinh2</p>
+
+                <button class="btn btn-cart" onclick="location.href='#'">
+                    Xem Chi Tiết Sản Phẩm
+                </button>
+            </div>
+
+        }
+    }
+</div>
+<div class="banner2">
+    <img src="https://pbs.twimg.com/media/GvbHOdLXgAA4XE2?format=jpg&name=medium">
+</div>
+<!--ĐIỆN THOẠI-->
+<div class="product">
+    <div class="product-tittle">
+        <h2>ĐIỆN THOẠI</h2>
+        <a href="@Url.Action("Phone", "ListProduct")">Xem Tất Cả</a>
+    </div>
+    @foreach (var item in Model.Phone)
+    {
+        if (item.ID == 1)
+        {
+            <div class="product-card">
+                <a class="iproduct" href="@Url.Action("Iphone", "Phone", new { id = item.ID })">
+                    <img src="@item.LinkAnh" alt="@item.TenSp" />
+                </a>
+                <a href="@Url.Action("Iphone", "Phone", new { id = item.ID })">@item.TenSp</a>
+                <h2 class="price">@item.GiaSp?.ToString("n0")đ</h2>
+                <p>@item.CauHinh1</p>
+                <p>@item.CauHinh2</p>
+                <button class="btn btn-cart" onclick="location.href='@Url.Action("Iphone", "Phone", new { id = item.ID })'">Xem Chi Tiết Sản Phẩm</button>
+            </div>
+        }
+        else
+        {
+            <div class="product-card">
+                <a class="iproduct" href="#">
+                    <img src="@item.LinkAnh" alt="@item.TenSp" />
+                </a>
+
+                <a href="#">@item.TenSp</a>
+
+                <h2 class="price">@item.GiaSp?.ToString("n0") đ</h2>
+
+                <p>@item.CauHinh1</p>
+                <p>@item.CauHinh2</p>
+
+                <button class="btn btn-cart" onclick="location.href='#'">
+                    Xem Chi Tiết Sản Phẩm
+                </button>
+            </div>
+
+        }
+    }
+</div>
+<div class="banner2">
+    <img src="https://pbs.twimg.com/media/GvtCaGqbsAE7a5V?format=jpg&name=medium">
+</div>
+<!--PHỤ KIỆN-->
+<div class="product">
+    <div class="product-tittle">
+        <h2>PHỤ KIỆN</h2>
+        <a href="@Url.Action("Accessory", "ListProduct")">Xem Tất Cả</a>
+    </div>
+    @foreach (var item in Model.PhuKien)
+    {
+        <div class="product-card">
+            <a class="iproduct" href="#">
+                <img src="@item.LinkAnh" alt="@item.TenSp" />
+            </a>
+
+            <a href="#">@item.TenSp</a>
+
+            <h2 class="price">@item.GiaSp?.ToString("n0") đ</h2>
+
+            <p>@item.CauHinh1</p>
+            <p>@item.CauHinh2</p>
+
+            <button class="btn btn-cart" onclick="location.href='#'">
+                Xem Chi Tiết Sản Phẩm
+            </button>
+        </div>
+    }
+</div>
+<div class="banner2">
+    <img src="https://pbs.twimg.com/media/Gvtjs-LWMAADKZb?format=jpg&name=small">
+</div>
+<!--PC-->
+<div class="product">
+    <div class="product-tittle">
+        <h2>PC-MÁY TÍNH BÀN</h2>
+        <a href="@Url.Action("PC", "ListProduct")">Xem Tất Cả</a>
+    </div>
+    @foreach (var item in Model.PC)
+    {
+        <div class="product-card">
+            <a class="iproduct" href="#">
+                <img src="@item.LinkAnh" alt="@item.TenSp" />
+            </a>
+
+            <a href="#">@item.TenSp</a>
+
+            <h2 class="price">@item.GiaSp?.ToString("n0") đ</h2>
+
+            <p>@item.CauHinh1</p>
+            <p>@item.CauHinh2</p>
+
+            <button class="btn btn-cart" onclick="location.href='#'">
+                Xem Chi Tiết Sản Phẩm
+            </button>
+        </div>
+
+    }
+</div>
+<form id="tokenForm">@Html.AntiForgeryToken()</form>
+<script src="~/js/slider.js"></script>

@@ -1,0 +1,218 @@
+﻿@model List<ProjectFinal.Models.Cart>
+@{
+    ViewData["Title"] = "Giỏ hàng của bạn";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng</title>
+    <style>
+        .cart-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cart-header {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+            .cart-item img {
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+            }
+
+        .cart-item-info {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .discount {
+            font-size: 12px;
+            color: #1da1f2;
+            margin: 5px 0;
+        }
+
+        .cart-controls {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .quantity-btn {
+            background-color: #333;
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+            .quantity-btn:hover {
+                background-color: #444;
+            }
+
+        .cart-controls span {
+            margin: 0 10px;
+            font-size: 14px;
+        }
+
+        .remove-btn {
+            color: #ff4500;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+            .remove-btn:hover {
+                text-decoration: underline;
+            }
+
+        .cart-summary {
+            padding: 10px;
+            text-align: right;
+        }
+
+            .cart-summary p {
+                margin: 5px 0;
+                font-size: 14px;
+            }
+
+        .buy-button {
+            background-color: #ff4500;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+            .buy-button:hover {
+                background-color: #e03e00;
+            }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <div class="cart-header">Giỏ hàng của bạn</div>
+
+        @foreach (var item in Model)
+        {
+            <div class="cart-item" id="item-@item.ID">
+                <img src="@item.LinkAnh" alt="@item.TenSp">
+                <div class="cart-item-info">
+                    <div class="cart-item-title">@item.TenSp</div>
+                    <div>
+                        <span class="cart-item-price">@item.GiaSp đ</span>
+                    </div>
+                    <div class="discount">
+                        <i class="bi bi-gift-fill"></i> Ưu đãi mua Win11 PRO bản quyền vĩnh viễn giá chỉ 990k
+                    </div>
+                    <div class="cart-controls">
+                        <button class="quantity-btn" onclick="decreaseQty('@item.ID')">-</button>
+                        <span id="qty-item-@item.ID">1</span>
+                        <button class="quantity-btn" onclick="increaseQty('@item.ID')">+</button>
+                    </div>
+                </div>
+                <a href="/Cart/RemoveFromCart/@item.ID" class="remove-btn">
+                    <i class="bi bi-trash3-fill"></i>
+                </a>
+            </div>
+        }
+
+        <div class="cart-summary">
+            <p><strong>Tạm tính:</strong> <span id="subtotal">0đ</span></p>
+            <button class="buy-button" onclick="checkout()">Mua ngay</button>
+        </div>
+    </div>
+
+    <script>
+        function decreaseQty(itemId) {
+            let qty = parseInt(document.getElementById(`qty-item-${itemId}`).textContent);
+            if (qty > 1) {
+                qty--;
+                document.getElementById(`qty-item-${itemId}`).textContent = qty;
+                updateSubtotal();
+            }
+        }
+
+        function increaseQty(itemId) {
+            let qty = parseInt(document.getElementById(`qty-item-${itemId}`).textContent);
+            qty++;
+            document.getElementById(`qty-item-${itemId}`).textContent = qty;
+            updateSubtotal();
+        }
+
+        function updateSubtotal() {
+            let subtotal = 0;
+            document.querySelectorAll('.cart-item').forEach(item => {
+                const itemId = item.id.replace('item-', '');
+                const qty = parseInt(document.getElementById(`qty-item-${itemId}`).textContent);
+                const price = parseInt(item.querySelector('.cart-item-price').textContent.replace(/[^0-9]/g, ''));
+                subtotal += price * qty;
+            });
+            document.getElementById('subtotal').textContent = `${subtotal.toLocaleString()}đ`;
+        }
+
+        function removeItem(itemId) {
+            alert("Bạn đang thực hiện thao tác xóa sản phẩm.");
+
+            if (confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+                const item = document.getElementById(`item-${itemId}`);
+                if (item) {
+                    const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+                    fetch(`/Cart/RemoveFromCart/${itemId}`, {
+                        method: 'POST',
+                        headers: {
+                            'RequestVerificationToken': token
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            item.remove();
+                            updateSubtotal();
+                        } else {
+                            alert("❌ Không thể xóa sản phẩm.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Lỗi khi xóa:", error);
+                        alert("⚠️ Có lỗi xảy ra.");
+                    });
+                }
+            }
+        }
+
+        function checkout() {
+            alert('Chức năng thanh toán đang được phát triển!');
+        }
+
+        window.onload = updateSubtotal;
+    </script>
+</body>
+</html>
+
+

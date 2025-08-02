@@ -1,0 +1,41 @@
+﻿@model List<ProjectFinal.Models.PC>
+@{
+    ViewData["Title"] = "N5Store - PC";
+    <link rel="stylesheet" href="~/css/slider.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
+}
+<style>
+    .banner2 {
+        transform: translateY(15px);
+    }
+</style>
+<div class="banner2">
+    <img src="https://pbs.twimg.com/media/Gvtjs-LWMAADKZb?format=jpg&name=small">
+</div>
+<!--PC-->
+<div class="product">
+    <div class="product-tittle">
+        <h2>PC-MÁY TÍNH BÀN</h2>
+    </div>
+    @foreach (var item in Model)
+    {
+            <div class="product-card">
+                <a class="iproduct" href="#">
+                    <img src="@item.LinkAnh" alt="@item.TenSp" />
+                </a>
+
+                <a href="#">@item.TenSp</a>
+
+                <h2 class="price">@item.GiaSp?.ToString("n0") đ</h2>
+
+                <p>@item.CauHinh1</p>
+                <p>@item.CauHinh2</p>
+
+                <button class="btn btn-cart" onclick="location.href='#'">
+                    Xem Chi Tiết Sản Phẩm
+                </button>
+            </div>
+
+        }
+</div>
+

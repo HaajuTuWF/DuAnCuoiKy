@@ -1,0 +1,199 @@
+﻿.flex-box {
+    display: flex;
+    width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.left {
+    width: 50%;
+}
+
+.big-img {
+    width: 600px;
+}
+
+    .big-img img {
+        width: inherit;
+    }
+
+.images {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.small-img {
+    width: 100px;
+    margin: 10px;
+    border: 1.5px solid #000;
+    overflow: hidden;
+}
+
+    .small-img:hover img {
+        transform: scale(1.1);
+    }
+
+    .small-img img {
+        width: inherit;
+        cursor: pointer;
+        transition: all 0.5s ease;
+    }
+
+.right {
+    transform: translateX(40px)
+}
+
+    .right table {
+        border: 1px solid #000;
+        border-collapse: collapse;
+        width: 500px;
+    }
+
+    .right h2 {
+        padding: 10px;
+    }
+
+    .right table td {
+        margin: 2px;
+        padding: 0.1px;
+        border: 1px solid #ccc;
+        padding: 4px;
+        text-align: left;
+    }
+
+    .right table tr:nth-child(odd) {
+        background-color: #f5f5f5;
+    }
+
+    .right table tr:nth-child(even) {
+        background-color: #fff;
+    }
+
+.price p {
+    padding: 10px;
+}
+
+    .price p:nth-child(1) {
+        text-decoration: line-through;
+        font-size: 20px;
+        color: #999;
+        float: left;
+    }
+
+    .price p:nth-child(2) {
+        color: red;
+        font-size: 30px;
+        font-weight: bold
+    }
+
+.cash {
+    padding: 30px;
+    transform: translateX(-20px);
+}
+
+    .cash button:nth-child(1) {
+        height: 40px;
+        width: 200px;
+        border-radius: 5px;
+        margin-left: 5px;
+        background-color: #0cc0df;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+    }
+
+    .cash button:nth-child(2) {
+        height: 40px;
+        width: 300px;
+        border-radius: 5px;
+        background-color: #ff6633;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+    }
+
+    .cash button:nth-child(1):hover {
+        background-color: #0f97ae;
+    }
+
+    .cash button:nth-child(2):hover {
+        background-color: red;
+    }
+
+.Mota {
+    list-style-type: none;
+    border: 1.5px solid #999;
+    width: 550px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    text-align: left;
+}
+
+    .Mota li {
+        padding: 5px;
+        color: #6c6868;
+    }
+
+        .Mota li i {
+            color: #000
+        }
+
+        .Mota li a {
+            text-decoration: none;
+            margin: 0 150px;
+            color: blue;
+        }
+
+    .Mota a::after {
+        content: '';
+        display: block;
+        margin: 0 150px;
+        width: 0;
+        height: 2px;
+        background-color: #0cc0df;
+        transition: width .5s ease;
+    }
+
+    .Mota a:hover::after {
+        width: 235px;
+    }
+
+    .Mota a:hover {
+        color: #0cc0df;
+        transition: .5s ease;
+    }
+
+    /**/
+.TTT {
+    margin: 0 130px;
+    display: inline-flex;
+}
+
+.TTT-Text {
+    width: 1200px;
+    text-align: justify;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+    .TTT-Text img {
+        width: 380px;
+    }
+
+    .TTT-Text h3, p {
+        padding: 5px;
+    }
+
+    .TTT-Text h2 {
+        padding: 0 5px;
+        text-align: center;
+    }
+summary {
+    cursor: pointer;
+}

@@ -1,0 +1,174 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="/css/navbar.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/adressform.css" />
+    <link rel="stylesheet" href="~/css/slider.css" />
+	<link rel="stylesheet" href="~/css/PhanHoi.css" />
+    @RenderSection("Styles", required: false)
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" href="https://pbs.twimg.com/media/Gw2sS6HacAAm4y7?format=png&name=120x120"
+          type="image/x-icon" />
+</head>
+<body>
+    <!--Nav chính-->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="@Url.Action("Index", "Home")">
+                    <img width="100" height="40"
+                         src="https://pbs.twimg.com/media/GvuP4ZxXAAA9CnM?format=png&name=small">
+                </a>
+            </div>
+            <div class="nav-links">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Hãy nhập tên sản phẩm..."><div id="searchResult"></div>
+                    <button onclick="searchProduct()"><i class="bi bi-search"></i></button>
+                </div>
+                <a href="@Url.Action("Index", "Home")"><i class="bi bi-house-door"></i> Trang Chủ</a>
+                <a id="adress-form" href="#location"><i class="bi bi-pin-map"></i> Chọn Vùng</a>
+                <a href="@Url.Action("Login", "Home")" id="Login"><i class="bi bi-person-circle"></i> Tài Khoản</a>
+                <a href="@Url.Action("Cart", "Cart")"><i class="bi bi-basket2"></i> Giỏ Hàng </a>
+                <a href="#contact"><i class="bi bi-telephone"></i> Liên Hệ</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Nav Phụ -->
+    <section class="menu-bar">
+        <div class="container">
+            <div class="menu-bar-content">
+                <ul>
+                    <li><a href="@Url.Action("Phone", "ListProduct")"><i class="fa-solid fa-mobile-screen-button"></i> ĐIỆN THOẠI </a></li>
+                    <li>
+                        <a href="@Url.Action("LapTop", "ListProduct")"><i class="fa-solid fa-laptop"></i> LAPTOP <i class="fa-solid fa-caret-down"></i></a>
+                        <div class="submenu">
+                            <ul>
+                                <li><a href="@Url.Action("Acer", "LapTop")">ACER</a></li>
+                                <li><a href="#">ASUS</a></li>
+                                <li><a href="#">MSI</a></li>
+                                <li><a href="#">MACBOOK</a></li>
+                                <li><a href="#">LENOVO</a></li>
+                                <li><a href="#">DELL</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Accessory", "ListProduct")"><i class="fa-solid fa-headphones-simple"></i> PHỤ KIỆN <i class="fa-solid fa-caret-down"></i></a>
+                        <div class="submenu">
+                            <ul>
+                                <li><a href="#">TAI NGHE</a></li>
+                                <li><a href="#">CÁP SẠC</a></li>
+                                <li><a href="#">LOA</a></li>
+                                <li><a href="#">BÀN PHÍM</a></li>
+                                <li><a href="#">CHUỘT</a></li>
+                                <li><a href="#">KHÁC...</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="@Url.Action("OldDevice", "ListProduct")"><i class="fa-solid fa-mobile-screen-button"></i> MÁY CŨ GIÁ RẺ </a></li>
+                    <li><a href="@Url.Action("PC", "ListProduct")"><i class="fa-solid fa-desktop"></i> PC-MÁY TÍNH BÀN </a></li>
+                    <li><a href="@Url.Action("SimCard", "ListProduct")"><i class="fa-solid fa-sim-card"></i> SIM, THẺ CÀO </a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--ADRESSFORM-->
+    <div class="adress-form">
+        <div class="adress-form-content">
+            <h2>Chọn địa chỉ nhận hàng <span id="adress-close">X</span></h2>
+            <form action="">
+                <p>Quý khách vui lòng cho biết Địa Chỉ Nhận Hàng để biết chính xác thời gian giao hàng</p>
+                <select name="" id="">
+                    <option value="#">--Chọn tỉnh thành</option>
+                    <option value="#">Tp.Hồ Chí Minh</option>
+                    <option value="#">Hà Nội</option>
+                    <option value="#">null</option>
+                    <option value="#">null</option>
+                </select>
+                <select name="" id="">
+                    <option value="#">--Chọn Quận/Huyện</option>
+                    <option value="#">null</option>
+                    <option value="#">null</option>
+                    <option value="#">null</option>
+                    <option value="#">null</option>
+                </select>
+                <select name="" id="">
+                    <option value="#">--Chọn Phường/Xã</option>
+                    <option value="#">null</option>
+                    <option value="#">null</option>
+                    <option value="#">null</option>
+                    <option value="#">null</option>
+                </select>
+                <input type="text" placeholder="Số Nhà, Tên Đường">
+                <button><b>Xác Nhận</b></button>
+            </form>
+        </div>
+    </div>
+    <div class="content">
+        @RenderBody()
+    </div>
+<!--HTPH-->
+    <div class="qa-section-fixed">
+        <h2>Hỏi và đáp</h2>
+        <div class="qa-box-fixed no-image">
+            <div class="qa-content-fixed">
+                <h3>Hãy đặt câu hỏi cho chúng tôi</h3>
+                <p>
+                    N5Store sẽ phản hồi trong vòng 1 giờ. Nếu Quý khách gửi câu hỏi sau 22h, chúng tôi sẽ trả lời vào sáng hôm sau.<br>
+                    Thông tin có thể thay đổi theo thời gian, vui lòng đặt câu hỏi để nhận được cập nhật mới nhất!
+                </p>
+                <div class="qa-input-group-fixed">
+                    <input type="text" class="qa-input-fixed" placeholder="Viết câu hỏi của bạn tại đây" />
+                    <button class="qa-btn-fixed">
+                        Gửi câu hỏi
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 20L21 12L3 4V10L17 12L3 14V20Z" fill="white" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>
+<!--HTTT-->
+<div class="httt">
+    <div class="TV">
+        <h4>Tư Vấn Mua Hàng (Miễn Phí) <br><p>1800 6600</p></h4>
+        <h4>Hỗ Trợ Kỹ Thuật (Miễn Phí) <br><p>1800 6600</p></h4>
+        <h4>Góp Ý - Khiếu Nại (8h00 - 22h00) <br><p>1800 6688</p></h4>
+    </div>
+    <div class="HTTT">
+        <h3>Hỗ Trợ Thanh Toán:</h3>
+        <img src="https://pbs.twimg.com/media/GvkL2aNW0AExkNU?format=png&name=120x120">
+        <img src="https://pbs.twimg.com/media/GvkL2fba4AA7m29?format=png&name=120x120">
+        <img src="https://pbs.twimg.com/media/GvkL2aVWoAAMXPC?format=png&name=120x120">
+        <img src="https://pbs.twimg.com/media/GvkL2fNWsAAwAsG?format=png&name=120x120">
+        <img src="https://pbs.twimg.com/media/GvkL68uW4AANP1k?format=png&name=120x120">
+        <img src="https://pbs.twimg.com/media/GvkL67_acAAnOmQ?format=png&name=120x120">
+    </div>
+</div>
+<!--FOOTER-->
+<footer>
+    <p>© 2025 - TRƯỜNG ĐẠI HỌC KINH TẾ KỸ THUẬT BÌNH DƯƠNG</p>
+    <p>Website được viết và phát triển cho bài báo cáo kết thúc môn học Lập trình ASP.NET</p>
+    <p>Mọi thắc mắc xin vui lòng liên hệ chúng tôi</p>
+    <p>Liên hệ:</p>
+    <p>Email: tuhau2k5@gmail.com</p>
+    <p>Email: nguyenphamanhquan204@gmail.com</p>
+    <p>Email: pnqb2005@gmail.com</p>
+</footer>
+<script src="~/js/navbar.js"></script>
+<script src="~/js/adressform.js"></script>
+<script src="~/js/accountForm.js"></script>
+<script src="~/js/htkh.js"></script>
+<script src="~/js/Search.js"></script>
+</body>
+</html>

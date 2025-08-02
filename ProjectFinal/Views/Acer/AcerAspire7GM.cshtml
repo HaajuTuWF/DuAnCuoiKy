@@ -1,0 +1,104 @@
+﻿@model ProjectFinal.Models.AcerViewModel
+@{
+    ViewData["Title"] = "Acer Aspire 7 Gaming A715-76G-5806 i5 12450H";
+    <link rel="stylesheet" href="~/css/slider.css" />
+    <link rel="stylesheet" href="~/css/listItem.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
+	<link rel="stylesheet" href="~/css/Detail.css" />
+}
+
+<style>
+    .banner2 {
+        transform: translateY(15px);
+    }
+</style>
+<div class="banner2">
+    <img src="https://pbs.twimg.com/media/GvtCaHYXQAA9cuO?format=jpg&name=medium">
+</div>
+<!--LAPTOP-->
+<div class="product">
+    <div class="product-tittle">
+        <h2>Acer Aspire 7 Gaming A715-76G-5806 i5 12450H</h2>
+    </div>
+    <!--CTSP-->
+    <div class="flex-box">
+        <div class="left">
+            <div class="big-img">
+                <img src="@Model.Anh.Anh1">
+            </div>
+            <div class="images">
+                <div class="small-img">
+                    <img src="@Model.Anh.Anh1" onclick="showImg(this.src)">
+                </div>
+                <div class="small-img">
+                    <img src="@Model.Anh.Anh2" onclick="showImg(this.src)">
+                </div>
+                <div class="small-img">
+                    <img src="@Model.Anh.Anh3" onclick="showImg(this.src)">
+                </div>
+                <div class="small-img">
+                    <img src="@Model.Anh.Anh4" onclick="showImg(this.src)">
+                </div>
+                <div class="small-img">
+                    <img src="@Model.Anh.Anh5" onclick="showImg(this.src)">
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="price">
+                <p>22.990.000đ</p>
+                <p>@string.Format("{0:n0} đ", Model.SanPham.GiaSp)</p>
+            </div>
+            <div class="Mota">
+                <li><i class="bi bi-nvidia"></i> @Model.MoTa.CardDoHoa</li>
+                <li><i class="bi bi-pc-display"></i> @Model.MoTa.ManHinh</li>
+                <li><i class="bi bi-cpu"></i> @Model.MoTa.Chip</li>
+                <li><i class="bi bi-gpu-card"></i> @Model.MoTa.RAM</li>
+                <li><i class="bi bi-hdd"></i> @Model.MoTa.ROM</li>
+                <li><a id="XctSp" href="#">Xem chi tiết thông số kỹ thuật</a></li>
+            </div>
+            <div class="cash">
+                <button>Mua Ngay</button>
+                <button onclick="addToCart(@Model.SanPham.ID)">Thêm vào giỏ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="antiForgeryForm">@Html.AntiForgeryToken()</form>
+
+<script>
+     function showImg(src) {
+            document.querySelector('.big-img img').src = src;
+        }
+        document.getElementById('XctSp').addEventListener('click', function() {
+            alert("Thông số kỹ thuật chi tiết sẽ được cập nhật sau.");
+        });
+
+
+    function addToCart(productId) {
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        fetch('/Cart/AddToCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': token
+            },
+            body: JSON.stringify(productId)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("✅ Đã thêm vào giỏ hàng!");
+            } else {
+                alert("❌ Không thể thêm sản phẩm.");
+            }
+        })
+        .catch(error => {
+            console.error("Lỗi khi thêm vào giỏ hàng:", error);
+            alert("⚠️ Có lỗi xảy ra.");
+        });
+    }
+</script>
+
+

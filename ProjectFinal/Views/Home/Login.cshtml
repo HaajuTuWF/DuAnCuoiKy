@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng Nhập</title>
+    <link rel="icon" href="https://pbs.twimg.com/media/Gw2sS6HacAAm4y7?format=png&name=120x120"
+          type="image/x-icon" />
+<style>
+        /* Toàn bộ trang */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container chung cho login/register */
+        .login-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            text-align: center;
+        }
+
+        /* Tiêu đề */
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Input field */
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        /* Nút đăng nhập/đăng ký */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        /* Thông báo lỗi/thành công */
+        p#errorMessage,
+        p#registerMessage {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* Link chuyển giữa login / register */
+        p a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+            p a:hover {
+                text-decoration: underline;
+            }
+
+</style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Đăng Nhập</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Tên đăng nhập" required>
+            <input type="password" id="password" placeholder="Mật khẩu" required>
+            <button type="submit">Đăng nhập</button>
+            <p id="errorMessage" style="color:red;"></p>
+        </form>
+
+        <!-- 🔽 Nút hoặc link Đăng ký -->
+        <p>
+            Bạn chưa có tài khoản?
+            <a href="@Url.Action("DK", "Home")">Đăng ký ngay</a>
+        </p>
+    </div>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            fetch('/Login/CheckLogin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error("Lỗi phản hồi server");
+                return res.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert("Đăng nhập thành công!");
+                    window.location.href = "/Home/Index"; // hoặc trang khác tùy bạn
+                } else {
+                    document.getElementById("errorMessage").textContent = data.message;
+                }
+            })
+            .catch(err => {
+                console.error("Lỗi khi đăng nhập:", err);
+                document.getElementById("errorMessage").textContent = "Không thể kết nối đến máy chủ.";
+            });
+        });
+
+    </script>
+</body>
+</html>
+
